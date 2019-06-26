@@ -1,0 +1,79 @@
+# for Mac OS X System Files
+.DS_Store
+.DS_Store?
+.Trash
+.AppleDouble
+.LSOverride
+.idea
+
+# for Python
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+
+# for Eclipse
+*.project
+
+# for Logs and databases
+*.log
+
+# remove SVN
+.svn
+
+# for Xcode
+*.swp
+.clang_complete
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+
+# for IDEA
+*/build/*
+.idea/*
+.idea
+.idea/
+venv/
+workspace.xml
+misc.xml
+modules.xml
+project_mmp.iml
+vcs.xml
+workspace.xml
+api/migrations/*
+*.iml
+/out/*
+upload/*
+*.pid
+logs/*
+ansible/tomcat/*
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+.apdisk
+myctests.py
