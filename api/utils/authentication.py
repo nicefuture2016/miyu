@@ -19,11 +19,14 @@ class SignAuthentication(BaseAuthentication):
         timestamp = request._request.GET.get('timestamp')
         app_key = request._request.GET.get('app_key')
 
+        print(sign)
         # 需要携带额外参数才能继续访问：比如签名，时间戳和app_key
         if not all([sign,timestamp,app_key]) or app_key != settings.APP_KEY:
             msg = 'request error'
             raise exceptions.AuthenticationFailed(detail=msg)
         querydict = request.query_params
+
+        print(querydict)
         querydict._mutable = True
 
         # 删除不用的参数以供对参数进行签名认证
@@ -35,7 +38,7 @@ class SignAuthentication(BaseAuthentication):
             pass
 
         query_params = querydict.urlencode()
-        print(query_params)
+        print(query_params,'=====')
         string = settings.APP_SECRET + query_params
         m_string = create_md5(string)
         print(m_string.upper())
