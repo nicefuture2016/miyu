@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="renderer" content="webkit">
+    {% block title %} {% endblock %}      
+	{% load staticfiles %}
+	<link rel="shortcut icon" href="{% static 'img/facio.ico' %}" type="image/x-icon">
+	<link href="{% static 'css/bootstrap.min.css' %} "rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %} " rel="stylesheet">
+	<link href="{% static 'css/animate.css' %} " rel="stylesheet">
+	<link href="{% static 'css/style.css' %} " rel="stylesheet">
+	<link href="{% static 'css/plugins/iCheck/custom.css' %} " rel="stylesheet">
+    {% block css %} {% endblock %}
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+
+
+						<li id="1">
+							<a href="{% url 'index' %}">
+								<i class="fa fa-dashboard" style="width: 14px"></i> <span class="nav-label">术语</span>
+								<span class="label label-info pull-right"></span>
+							</a>
+						</li>
+
+						<li id="2">
+							<a href="{% url 'article' %}">
+								<i class="fa fa-database" style="width: 14px"></i> <span class="nav-label">文章</span><span
+									class="label label-info pull-right"></span>
+							</a>
+						</li>	
+
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a id="nav_id" class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="">
+                <div class="form-group">
+                    <input type="text" placeholder="请输入搜索内容" class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown">
+					
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+						<span class="m-r-sm text-muted welcome-message">
+							<img alt="image" class="img-circle" width="30" height="30" src="{% static 'img/avatar/admin.png' %}"/>
+							<span style="font-size: 13px;font-weight: 400"> {{request.user}}
+								<b class="caret"></b>
+							</span>
+						</span>
+					</a>
+					<ul class="dropdown-menu animated fadeInRight m-t-xs profile-dropdown">
+						<li><a href="{% url 'sys_logout' %}"><i class="fa fa-sign-out"></i> <span>注销登录</span></a></li>
+					</ul>
+					
+				</li>
+            </ul>
+
+        </nav>
+        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+				{% block breadcrumb %}{% endblock %}
+                <div class="col-lg-2">
+                </div>
+            </div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+				{% block content %}{% endblock %}  	
+				</div>
+			</div>
+			<div class="footer fixed">
+				<div class="pull-right">
+					<strong>www.baidu.com</strong>
+				</div>
+				<div>
+					<strong>Copyright</strong> baidu &copy; 2019
+				</div>
+			</div>
+        </div>
+    </div>
+
+	<script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/inspinia.js' '%}"></script>
+	<script type="text/javascript" src="{% static 'js/jumpserver.js' '%}"></script>
+	<script type="text/javascript" src="{% static 'js/plugins/iCheck/icheck.min.js' %}"></script>
+
+    <script>
+
+    </script>
+	{% block javascript %}{% endblock %}
+
+</body>
+
+</html>
