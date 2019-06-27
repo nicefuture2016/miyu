@@ -9,9 +9,9 @@ from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     url(r'^category/$', views.ParentView.as_view(), name='category'),
-    url(r'^child/(?P<pk>\d+)/$', views.ChildView.as_view(), name='child'),
+    url(r'^category/child/$', views.ChildView.as_view(), name='child'),
     url(r'^topsearch/$', views.SearchRank.as_view(), name='topsearch'),
-    url(r'^shuyu/$', views.ShuYuSearchView.as_view(), name='shuyu'),
+    url(r'^search/$', views.ShuYuSearchView.as_view(), name='search'),
     url(r'^lesson/$', views.ParentLessonView.as_view(), name='lesson'),
     url(r'^lesson/(?P<pk>\d+)/cid/(?P<cid>\d+)/$', views.ChildLessonView.as_view()),
     url(r'^lesson/content/(?P<pk>\d+)/$', views.LessonContentView.as_view()),

@@ -121,16 +121,17 @@ class ChildView(APIView):
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
-        pk = kwargs.get('pk')
 
-        child_object = CategoryChild.objects.get(pk=pk)
-        child = child_object.shuyu.all()
+        cid = request._request.GET.get('cid')
+
+        child_object = CategoryChild.objects.get(pk=cid)
+        child = child_object.shuyu.all().order_by('-updated')
         category = child_object.name
         # 创建分页对象
         pg = MyPageNumberPagination()
         # 获取分页的数据
         page_child = pg.paginate_queryset(queryset=child,request=request,view=self)
-        print(pg.request.query_params.get('page'))
+
         # 对数据进行序列化
         serializer = ShuYuSerializer(instance=page_child, many=True)
 
@@ -139,7 +140,6 @@ class ChildView(APIView):
             pool = redis.ConnectionPool(host=settings.REDIS_SERVER,port=settings.REDIS_PORT,decode_responses=True)
             conn = redis.Redis(connection_pool=pool)
             conn.zincrby(settings.SEARCH_RANK,category,1)
-            #conn.save()
         except Exception as e:
             logger.error(e)
 
