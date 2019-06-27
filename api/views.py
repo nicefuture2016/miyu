@@ -235,6 +235,78 @@ class ParentLessonView(APIView):
         serializer = ParentLessonSerializer(instance=category, many=True)
         return Response(serializer.data)
 
+class LTJXView(APIView):
+
+    '''
+    网上撩妹&聊天教学
+    '''
+
+    #authentication_classes = [SignAuthentication, ]
+
+    def get(self, request, *args,**kwargs):
+
+        child_name = '网上撩妹'
+
+        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
+
+
+        pg = MyPageNumberPagination()
+        # 获取分页的数据
+        page_child_lesson = pg.paginate_queryset(queryset=child_object,request=request,view=self)
+
+        # 对数据进行序列化
+        serializer = LessonSerializer(instance=page_child_lesson, many=True)
+
+        return pg.get_paginated_response(serializer.data)
+
+class MRJXView(APIView):
+
+    '''
+    每日优选
+    '''
+
+    #authentication_classes = [SignAuthentication, ]
+
+    def get(self, request, *args,**kwargs):
+
+        child_name = '精选文章'
+
+        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
+
+
+        pg = MyPageNumberPagination()
+        # 获取分页的数据
+        page_child_lesson = pg.paginate_queryset(queryset=child_object,request=request,view=self)
+
+        # 对数据进行序列化
+        serializer = LessonSerializer(instance=page_child_lesson, many=True)
+
+        return pg.get_paginated_response(serializer.data)
+
+class KCTJView(APIView):
+
+    '''
+    课程推荐
+    '''
+
+    #authentication_classes = [SignAuthentication, ]
+
+    def get(self, request, *args,**kwargs):
+
+        child_name = '极限话术高级版'
+
+        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
+
+
+        pg = MyPageNumberPagination()
+        # 获取分页的数据
+        page_child_lesson = pg.paginate_queryset(queryset=child_object,request=request,view=self)
+
+        # 对数据进行序列化
+        serializer = LessonSerializer(instance=page_child_lesson, many=True)
+
+        return pg.get_paginated_response(serializer.data)
+
 class ChildLessonView(APIView):
 
     #authentication_classes = [SignAuthentication, ]

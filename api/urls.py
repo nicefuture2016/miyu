@@ -8,10 +8,22 @@ from rest_framework.routers import DefaultRouter
 #router.register(r'shuyu', views.ShuYuViewSet, base_name='shuyu')
 
 urlpatterns = [
-    url(r'^category/$', views.ParentView.as_view(), name='category'),
-    url(r'^category/child/$', views.ChildView.as_view(), name='child'),
-    url(r'^topsearch/$', views.SearchRank.as_view(), name='topsearch'),
+    # 获取banner
+    url(r'^banner/$', views.Banner.as_view(), name='banner'),
+    # 术语搜索
     url(r'^search/$', views.ShuYuSearchView.as_view(), name='search'),
+    # 恋爱话术总分类
+    url(r'^category/$', views.ParentView.as_view(), name='category'),
+    # 恋爱话术子分类
+    url(r'^category/child/$', views.ChildView.as_view(), name='child'),
+    # 网上撩妹&聊天教学
+    url(r'^ltjx/$', views.LTJXView.as_view(), name='ltjx'),
+    # 每日优选
+    url(r'^mrjx/$', views.MRJXView.as_view(), name='mrjx'),
+    # 每日优选
+    url(r'^kctj/$', views.KCTJView.as_view(), name='kctj'),
+    url(r'^topsearch/$', views.SearchRank.as_view(), name='topsearch'),
+
     url(r'^lesson/$', views.ParentLessonView.as_view(), name='lesson'),
     url(r'^lesson/(?P<pk>\d+)/cid/(?P<cid>\d+)/$', views.ChildLessonView.as_view()),
     url(r'^lesson/content/(?P<pk>\d+)/$', views.LessonContentView.as_view()),
@@ -20,7 +32,9 @@ urlpatterns = [
     url(r'^lesson/myfavorite/$', views.LessonMyFavoriteView.as_view()),
     url(r'^auth/', views.LoginView.as_view(),name='auth'),
     url(r'^getcode/$', views.GetSmsCodeView.as_view(), name='getcode'),
-    url(r'^banner/$', views.Banner.as_view(), name='banner'),
+
     url(r'^data/$', views.data, name='data'),
+
+
 ]
 #+ router.urls
