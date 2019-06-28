@@ -11,7 +11,7 @@ COS = 'https://img-1256517108.cos.ap-chengdu.myqcloud.com/'
 BANNER = 'banner.jpg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
