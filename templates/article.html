@@ -47,7 +47,7 @@
 						<td >{{i.name}}</td>							
 						<td >{{ i.icon }}</td>
 						<td >{{ i.level }}</td>
-						<td >{{ i.get_role_display }}</td>
+						<td >{% if i.role == 1 %}<span class="label label-primary">{{ i.get_role_display }}</span>{% else %}<span class="label label-danger">{{ i.get_role_display }}</span>{% endif %}</td>
 						<td >
 							<select onchange="window.location.href=this.options[selectedIndex].value" class="chosen-select form-control">
 								<option value="" selected>--查看--</option>
