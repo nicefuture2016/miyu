@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 #router.register(r'shuyu', views.ShuYuViewSet, base_name='shuyu')
 
 urlpatterns = [
+    # 主页
     # 获取banner
     url(r'^banner/$', views.Banner.as_view(), name='banner'),
     # 术语搜索
@@ -20,8 +21,11 @@ urlpatterns = [
     url(r'^ltjx/$', views.LTJXView.as_view(), name='ltjx'),
     # 每日优选
     url(r'^mrjx/$', views.MRJXView.as_view(), name='mrjx'),
-    # 每日优选
+    # 课程推荐
     url(r'^kctj/$', views.KCTJView.as_view(), name='kctj'),
+    # 主页分类课程
+    url(r'^zyflkc/$', views.ZYFLKCView.as_view(), name='zyflkc'),
+
     url(r'^topsearch/$', views.SearchRank.as_view(), name='topsearch'),
 
     url(r'^lesson/$', views.ParentLessonView.as_view(), name='lesson'),

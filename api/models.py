@@ -3,7 +3,13 @@ from django.db import models
 ROLE = (
     (1, "普通用户"),
     (2, "SVIP用户")
-    )
+)
+
+# 主页推荐分类
+CATEGORY_MAIN = (
+    (1, "显示"),
+    (2, "不显示")
+)
 
 class Log(models.Model):
     logid = models.CharField(db_column='logId', primary_key=True, max_length=45)  # Field name made lowercase.
@@ -113,6 +119,7 @@ class CategoryLesson(models.Model):
     icon = models.CharField(max_length=300, blank=True, null=True)
     Lessonchild = models.ManyToManyField(CategoryLessonChild)
     level = models.SmallIntegerField(default=1)
+    role = models.IntegerField(choices=CATEGORY_MAIN, default=2)
 
     def __unicode__(self):
         return self.name

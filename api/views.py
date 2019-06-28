@@ -307,6 +307,18 @@ class KCTJView(APIView):
 
         return pg.get_paginated_response(serializer.data)
 
+
+class ZYFLKCView(APIView):
+
+    '''
+    主页分类课程
+    '''
+
+    def get(self, request, *args, **kwargs):
+        category = CategoryLesson.objects.filter(role=1).order_by('level')
+        serializer = ParentLessonSerializer(instance=category, many=True)
+        return Response(serializer.data)
+
 class ChildLessonView(APIView):
 
     #authentication_classes = [SignAuthentication, ]
