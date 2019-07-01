@@ -37,6 +37,28 @@ class ShuYuSerializer(serializers.ModelSerializer):
 
 class ParentLessonSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = CategoryLesson
+        fields = ('id','name','icon')
+
+class LessonCategorySerializer(serializers.ModelSerializer):
+
+    child = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CategoryLesson
+        fields = ('child',)
+    def get_child(self,row):
+
+        child_obj_list = row.Lessonchild.all().order_by('level')
+        ret = []
+
+        for item in child_obj_list:
+            ret.append({'name':item.name,'id':item.id})
+        return ret
+
+class LessonChildSerializer(serializers.ModelSerializer):
+
     child  = serializers.SerializerMethodField()
 
     class Meta:

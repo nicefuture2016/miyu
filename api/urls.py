@@ -25,12 +25,18 @@ urlpatterns = [
     url(r'^kctj/$', views.KCTJView.as_view(), name='kctj'),
     # 主页分类课程
     url(r'^zyflkc/$', views.ZYFLKCView.as_view(), name='zyflkc'),
-
+    # 搜索排行榜
     url(r'^topsearch/$', views.SearchRank.as_view(), name='topsearch'),
 
+    # 教程
+    # 教程分类
     url(r'^lesson/$', views.ParentLessonView.as_view(), name='lesson'),
-    url(r'^lesson/(?P<pk>\d+)/cid/(?P<cid>\d+)/$', views.ChildLessonView.as_view()),
-    url(r'^lesson/content/(?P<pk>\d+)/$', views.LessonContentView.as_view()),
+    # 教程子分类列表
+    url(r'^lesson/child/$', views.ChildLessonView.as_view()),
+    # 教程子分类文章列表
+    url(r'^lesson/child/list/$', views.ChildLessonListView.as_view()),
+    # 获取课程内容
+    url(r'^lesson/content/$', views.LessonContentView.as_view()),
     url(r'^lesson/like/(?P<pk>\d+)/$', views.LessonLikeView.as_view()),
     url(r'^lesson/favorite/$', views.LessonFavoriteView.as_view()),
     url(r'^lesson/myfavorite/$', views.LessonMyFavoriteView.as_view()),

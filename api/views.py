@@ -1,15 +1,12 @@
-#from rest_framework import status
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from django.http.response import HttpResponse
 from .models import CategoryParent,CategoryChild,ShuYu,CategoryLesson,CategoryLessonChild,Lesson
-from api.utils.serializer import ParentSerializer,ChildSerializer,ShuYuSerializer,ParentLessonSerializer,LessonSerializer,JSONWebTokenSerializer,LessonContentSerializer
-from rest_framework import status
+from api.utils.serializer import ParentSerializer,ChildSerializer,ShuYuSerializer,ParentLessonSerializer,LessonSerializer,JSONWebTokenSerializer,LessonContentSerializer,LessonCategorySerializer
 from api.utils.pagination import MyPageNumberPagination
 from api.utils.filters import ShuYuFilter
 from rest_framework import viewsets
-from rest_framework import filters
 from django_filters import rest_framework
 from rest_framework_jwt.views import JSONWebTokenAPIView
 from django.conf import settings
@@ -109,6 +106,9 @@ class LoginView(APIView):
 
 class ParentView(APIView):
 
+    '''
+    恋爱话术总分类
+    '''
     #authentication_classes =  [SignAuthentication,]
 
     def get(self, request, *args,**kwargs):
@@ -118,6 +118,9 @@ class ParentView(APIView):
 
 class ChildView(APIView):
 
+    '''
+    恋爱话术子分类
+    '''
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
@@ -148,6 +151,9 @@ class ChildView(APIView):
 
 class SearchRank(APIView):
 
+    '''
+    搜索排行榜
+    '''
     def get(self, request, *args,**kwargs):
         data = {
             'result':[],
@@ -177,6 +183,9 @@ class SearchRank(APIView):
 
 class ShuYuSearchView(APIView):
 
+    '''
+    术语搜索
+    '''
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
@@ -228,6 +237,9 @@ class ShuYuViewSet(viewsets.ModelViewSet):
 
 class ParentLessonView(APIView):
 
+    '''
+    教程分类
+    '''
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
@@ -319,29 +331,50 @@ class ZYFLKCView(APIView):
         serializer = ParentLessonSerializer(instance=category, many=True)
         return Response(serializer.data)
 
+
+
 class ChildLessonView(APIView):
 
+    '''
+    教程子分类列表
+    '''
+
+    def get(self, request, *args,**kwargs):
+
+        parent_id = request._request.GET.get('pid')
+
+        # 获取大分类对象
+        parent_object = CategoryLesson.objects.filter(pk=parent_id)
+
+        # 对数据进行序列化
+        serializer = LessonCategorySerializer(instance=parent_object, many=True)
+
+        return Response(serializer.data)
+
+class ChildLessonListView(APIView):
+
+    '''
+    教程子分类文章列表
+    '''
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
 
-        # 总分类id
-        pk = kwargs.get('pk')
+
         # 子分类id
-        cid = kwargs.get('cid')
+        child_id = request._request.GET.get('cid')
 
         # 获取大分类对象
-        pk_object = CategoryLesson.objects.get(pk=pk)
+        child_object = CategoryLessonChild.objects.get(pk=child_id)
 
-        print(pk_object.name,pk,cid)
         # 获取子分类对象
-        category_obj = pk_object.Lessonchild.get(pk=cid).lesson.all()
+        lesson_obj = child_object.lesson.all().order_by('-updated')
 
         #lesson = category_obj.lesson.get(pk=lid).all()
         # 创建分页对象
         pg = MyPageNumberPagination()
         # 获取分页的数据
-        page_child = pg.paginate_queryset(queryset=category_obj,request=request,view=self)
+        page_child = pg.paginate_queryset(queryset=lesson_obj,request=request,view=self)
 
         # 对数据进行序列化
         serializer = LessonSerializer(instance=page_child, many=True)
@@ -353,15 +386,15 @@ class LessonContentView(APIView):
     #authentication_classes = [SignAuthentication, ]
 
     '''
-    返回课程内容
+    获取课程内容
     '''
     def get(self, request, *args,**kwargs):
 
         # 课程ID
-        pk = kwargs.get('pk')
+        lesson_id = request._request.GET.get('lid')
 
         # 获取大分类对象
-        lesson_object = Lesson.objects.get(pk=pk)
+        lesson_object = Lesson.objects.get(pk=lesson_id)
 
         # 对数据进行序列化
         serializer = LessonContentSerializer(instance=lesson_object,)
