@@ -409,11 +409,10 @@ class LessonLikeView(APIView):
 
         ret = {'code': 10000, 'msg': 'success'}
 
-        # 课程ID
-        pk = kwargs.get('pk')
+        lesson_id = request._request.GET.get('lid')
 
         # 获取大分类对象
-        lesson_object = Lesson.objects.get(pk=pk)
+        lesson_object = Lesson.objects.get(pk=lesson_id)
 
         try:
             like = lesson_object.like
@@ -436,10 +435,10 @@ class LessonFavoriteView(APIView):
 
         # 课程ID
         token = request._request.POST.get('token')
-        id = request._request.POST.get('id')
-        print(token,id)
+        lid = request._request.POST.get('lid')
+
         # 获取当前课程对象
-        lesson_object = Lesson.objects.filter(pk=id)
+        lesson_object = Lesson.objects.filter(pk=lid)
 
         try:
             user_obj = User.objects.get(token=token)

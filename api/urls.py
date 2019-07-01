@@ -37,9 +37,13 @@ urlpatterns = [
     url(r'^lesson/child/list/$', views.ChildLessonListView.as_view()),
     # 获取课程内容
     url(r'^lesson/content/$', views.LessonContentView.as_view()),
-    url(r'^lesson/like/(?P<pk>\d+)/$', views.LessonLikeView.as_view()),
+    # 喜欢
+    url(r'^lesson/like/$', views.LessonLikeView.as_view()),
+    # 收藏
     url(r'^lesson/favorite/$', views.LessonFavoriteView.as_view()),
+    # 我的收藏
     url(r'^lesson/myfavorite/$', views.LessonMyFavoriteView.as_view()),
+
     url(r'^auth/', views.LoginView.as_view(),name='auth'),
     url(r'^getcode/$', views.GetSmsCodeView.as_view(), name='getcode'),
 
