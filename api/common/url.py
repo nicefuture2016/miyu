@@ -34,7 +34,7 @@ app_secret = '0I7UwwU1Tiq3mjiNeI72'
 timestamp = int(time.time())
 
 # 请求参数 中文参数需要urlencode，%E4%BD%A0%E5%A5%BD=你好
-query_params = "page=3"
+query_params = "page=1&size=10"
 
 # 拼接 app_secret + query_params，然后进行MD5加密，转大写
 sign = md5(app_secret + query_params).upper()
@@ -44,9 +44,10 @@ params = {
     'sign' : sign,
     'app_key' : 'lovekit',
     'timestamp' : timestamp,
-    'page' : 3
+    'page' : 1,
+    'size' : 10
 }
 
 # 发送请求
-response = requests.get('http://127.0.0.1:8000/api/v1/lesson/30/cid/20/',params=params)
+response = requests.get('http://127.0.0.1:8000/api/v1/mrjx/',params=params)
 print(response.text)

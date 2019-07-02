@@ -49,7 +49,7 @@ class SignAuthentication(BaseAuthentication):
 
         server_timestamp = int(time.time())
         if int(timestamp) + 30 < server_timestamp:
-            msg = 'Signature Expire'
+            msg = 'signature expire'
             logger.error(msg)
             raise exceptions.AuthenticationFailed(detail=msg)
 
