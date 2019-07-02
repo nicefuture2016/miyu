@@ -3,6 +3,7 @@ from rest_framework import exceptions
 import time
 from django.conf import settings
 from api.common.func import create_md5
+from api.models import User
 import logging
 logger = logging.getLogger('miyu.api.utils.authentication')
 
@@ -55,3 +56,23 @@ class SignAuthentication(BaseAuthentication):
     def authenticate_header(self, request):
         pass
 
+
+class Authentication(BaseAuthentication):
+    """
+    API签名验证
+    """
+    def authenticate(self, request):
+
+        token = request._request.POST.get('token')
+
+        try:
+            user_object = User.objects.get(token=token)
+        except:
+            user_object = None
+
+        if not user_object:
+            return None
+        return (user_object.phone,user_object.role)
+
+    def authenticate_header(self, request):
+        pass

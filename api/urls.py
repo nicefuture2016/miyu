@@ -44,9 +44,13 @@ urlpatterns = [
     # 我的收藏
     url(r'^lesson/myfavorite/$', views.LessonMyFavoriteView.as_view()),
 
+    # 我的
+    # 登录
     url(r'^auth/', views.LoginView.as_view(),name='auth'),
+    # 获取验证码
     url(r'^getcode/$', views.GetSmsCodeView.as_view(), name='getcode'),
-
+    # 提交反馈
+    url(r'^question/$', views.QuestionView.as_view(), name='question'),
     url(r'^data/$', views.data, name='data'),
 
 

@@ -137,6 +137,14 @@ class User(models.Model):
     class Meta:
         db_table = 'user'
 
+class Question(models.Model):
+    contact = models.CharField(max_length=45,blank=True, null=True)
+    phone =  models.CharField(max_length=45,blank=True, null=True)
+    question = models.TextField(max_length=100000,blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'question'
+
 class TblDictionary(models.Model):
     dictionaryid = models.CharField(db_column='dictionaryId', primary_key=True, max_length=45)  # Field name made lowercase.
     d_key = models.CharField(max_length=45, blank=True, null=True)

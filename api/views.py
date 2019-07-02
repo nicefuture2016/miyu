@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from django.http.response import HttpResponse
-from .models import CategoryParent,CategoryChild,ShuYu,CategoryLesson,CategoryLessonChild,Lesson
+from .models import CategoryParent,CategoryChild,ShuYu,CategoryLesson,CategoryLessonChild,Lesson,Question
 from api.utils.serializer import ParentSerializer,ChildSerializer,ShuYuSerializer,ParentLessonSerializer,LessonSerializer,JSONWebTokenSerializer,LessonContentSerializer,LessonCategorySerializer
 from api.utils.pagination import MyPageNumberPagination
 from api.utils.filters import ShuYuFilter
@@ -17,7 +17,7 @@ from functools import reduce
 from api.utils.throttle import DefaultThrottle,DataThrottle
 from rest_framework_jwt.settings import api_settings
 from api.common.func import jieba_analyse
-from api.utils.authentication import SignAuthentication
+from api.utils.authentication import SignAuthentication,Authentication
 from api.common.func import SmsSender,create_token
 import logging
 logger = logging.getLogger('miyu.api.views')
@@ -40,7 +40,7 @@ class Banner(APIView):
 
 class GetSmsCodeView(APIView):
     '''
-    获取验证码API
+    获取验证码
     '''
     throttle_classes = [DataThrottle, ]
 
@@ -59,6 +59,24 @@ class GetSmsCodeView(APIView):
 
         return JsonResponse(data)
 
+class QuestionView(APIView):
+    '''
+    提交反馈
+    '''
+    authentication_classes = [Authentication, ]
+
+    def post(self,request, *args,**kwargs):
+
+        data = {'result':10000,'msg':'success'}
+        try:
+            contact = request._request.POST.get('contact')
+            question = request._request.POST.get('question')
+            Question.objects.create(**{'contact': contact,'phone':request.user,'question':question})
+        except Exception as e:
+            logger.error(e)
+            data['result'] = 10001
+            data['msg'] = 'fail'
+        return JsonResponse(data)
 
 class LoginWithJsonWebToken(JSONWebTokenAPIView):
 
@@ -66,7 +84,7 @@ class LoginWithJsonWebToken(JSONWebTokenAPIView):
 
 class LoginView(APIView):
     '''
-    用户使用手机&验证码 登录
+    登录
     '''
 
     throttle_classes = [DataThrottle, ]
