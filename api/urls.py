@@ -11,18 +11,14 @@ urlpatterns = [
     # 主页
     # 获取banner
     url(r'^banner/$', views.Banner.as_view(), name='banner'),
+    # 主页文章
+    url(r'^home/$', views.HomeView.as_view(), name='home'),
     # 术语搜索
     url(r'^search/$', views.ShuYuSearchView.as_view(), name='search'),
     # 恋爱话术总分类
     url(r'^category/$', views.ParentView.as_view(), name='category'),
     # 恋爱话术子分类
     url(r'^category/child/$', views.ChildView.as_view(), name='child'),
-    # 网上撩妹&聊天教学
-    url(r'^ltjx/$', views.LTJXView.as_view(), name='ltjx'),
-    # 每日优选
-    url(r'^mrjx/$', views.MRJXView.as_view(), name='mrjx'),
-    # 课程推荐
-    url(r'^kctj/$', views.KCTJView.as_view(), name='kctj'),
     # 主页分类课程
     url(r'^zyflkc/$', views.ZYFLKCView.as_view(), name='zyflkc'),
     # 搜索排行榜

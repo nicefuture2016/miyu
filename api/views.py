@@ -265,19 +265,25 @@ class ParentLessonView(APIView):
         serializer = ParentLessonSerializer(instance=category, many=True)
         return Response(serializer.data)
 
-class LTJXView(APIView):
+class HomeView(APIView):
 
     '''
-    网上撩妹&聊天教学
+    主页文章
     '''
-
     #authentication_classes = [SignAuthentication, ]
 
     def get(self, request, *args,**kwargs):
 
-        child_name = '网上撩妹'
+        type = request._request.GET.get('type')
 
-        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
+        dic = {
+            'ltjx' : '网上撩妹',
+            'mrtj' : '精选文章',
+            'kctj' : '极限话术高级版'
+        }
+
+
+        child_object = CategoryLessonChild.objects.get(name=dic.get(type)).lesson.all().order_by('-created')
 
 
         pg = MyPageNumberPagination()
@@ -289,53 +295,7 @@ class LTJXView(APIView):
 
         return pg.get_paginated_response(serializer.data)
 
-class MRJXView(APIView):
 
-    '''
-    每日优选
-    '''
-
-    #authentication_classes = [SignAuthentication, ]
-
-    def get(self, request, *args,**kwargs):
-
-        child_name = '精选文章'
-
-        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
-
-
-        pg = MyPageNumberPagination()
-        # 获取分页的数据
-        page_child_lesson = pg.paginate_queryset(queryset=child_object,request=request,view=self)
-
-        # 对数据进行序列化
-        serializer = LessonSerializer(instance=page_child_lesson, many=True)
-
-        return pg.get_paginated_response(serializer.data)
-
-class KCTJView(APIView):
-
-    '''
-    课程推荐
-    '''
-
-    #authentication_classes = [SignAuthentication, ]
-
-    def get(self, request, *args,**kwargs):
-
-        child_name = '极限话术高级版'
-
-        child_object = CategoryLessonChild.objects.get(name=child_name).lesson.all().order_by('-created')
-
-
-        pg = MyPageNumberPagination()
-        # 获取分页的数据
-        page_child_lesson = pg.paginate_queryset(queryset=child_object,request=request,view=self)
-
-        # 对数据进行序列化
-        serializer = LessonSerializer(instance=page_child_lesson, many=True)
-
-        return pg.get_paginated_response(serializer.data)
 
 
 class ZYFLKCView(APIView):
