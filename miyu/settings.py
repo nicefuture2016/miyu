@@ -3,8 +3,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'm39*5bysb%sye+_t$3veuqy001g9ftl#4p&1%_h8#k_f7@bole'
-APP_KEY = 'lovekit'
-APP_SECRET = '0I7UwwU1Tiq3mjiNeI72'
+APP_KEY = 'xxxxx'
+APP_SECRET = 'xxxxxxx'
 
 # COS 地址
 COS = 'https://img-1256517108.cos.ap-chengdu.myqcloud.com/'
