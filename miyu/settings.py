@@ -134,9 +134,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 LOG_DIR = os.environ['LOGDIR']
 
 # 短信配置
-APPID = '1400215219'
-APPKEY = 'b6e7409a4c2ff163cda3a9b51b727d96'
-TEMPLATEID = 340307
+APPID = 'xxxxx'
+APPKEY = 'xxxxx'
+TEMPLATEID = xxxxxx
 SIGN = '秋子互娱'
 SMS_TIME = 2
 
